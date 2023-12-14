@@ -1,25 +1,30 @@
 #include "monty.h"
 
-void push(stack_t **head, unsigned int n)
+void _push_(stack_t **head, unsigned int n)
 {
-        stack_t *new = malloc(sizeof(stack_t));
+        int i, j = 0;
+        char mode = 's';
 
-        if (!new)
-                return;
-        new->n = n;
-        new->next = NULL;
-        if ((*head))
+        if (!data.arg)
         {
-                for (; (*head)->next; (*head)=(*head)->next)
-                        ;
-                (*head)->next = new;
-                new->prev = (*head);
-                for (; (*head)->prev; (*head)=(*head)->prev)
-                        ;
+err:
+                fprintf(stderr, "L%d: usage: push integer\n", n);
+                fclose(data.f);
+                free_struct(*head);
+                exit(EXIT_FAILURE);
         }
-        else
+        if (data.arg[0] == '-')
+                j++;
+        for (; data.arg[j]; j++)
         {
-                new->prev = NULL;
-                (*head) = new;
+                if (data.arg[j] > '9' || data.arg[j] < '0')
+                        mode = 'q';
+                if (mode == 'q')
+                        goto err;
         }
+        i = atoi(data.arg);
+        if (data.mode == 's')
+                _push_stack_(head, i);
+        if (data.mode == 'q')
+                _push_queue_(head, i);
 }

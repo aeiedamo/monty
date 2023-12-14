@@ -1,25 +1,15 @@
 #include "monty.h"
 
-void pall(stack_t **head, unsigned int n)
+void _pall_(stack_t **head, unsigned int n)
 {
         stack_t *tmp = *head;
+        (void) n;
 
-        if (n == 'q')
+        if (!tmp)
+                return;
+        while (tmp)
         {
-                while (tmp)
-                {
-                        printf("%d\n", tmp->n);
-                        tmp = tmp->next;
-                }
-        }
-        else if (n == 's')
-        {
-                while (tmp->next)
-                        tmp = tmp->next;
-                while (tmp)
-                {
-                        printf("%d\n", tmp->n);
-                        tmp = tmp->prev;
-                }
+                printf("%d\n", tmp->n);
+                tmp = tmp->next;
         }
 }

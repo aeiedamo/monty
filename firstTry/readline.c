@@ -6,6 +6,7 @@ int _readline_(char *buffer)
         unsigned int j, k, l;
         char **lines;
         stack_t *head = NULL;
+        int return_value = EXIT_SUCCESS;
 
         if (!buffer)
                 return (1);
@@ -18,7 +19,8 @@ int _readline_(char *buffer)
         if (!lines)
         {
                 fprintf(stderr, "Error: malloc failed\n");
-                exit(EXIT_FAILURE);
+                return_value = EXIT_FAILURE;
+                goto ending;
         }
         for (i = 0, k = 0; i < numoflines; i++, k++)
         {
@@ -28,7 +30,11 @@ int _readline_(char *buffer)
                 if (!lines[i])
                 {
                         fprintf(stderr, "Error: malloc failed\n");
-                        exit(EXIT_FAILURE);
+                        while (i--)
+                                free(lines[i]);
+                        free(lines);
+                        return_value = EXIT_FAILURE;
+                        goto ending;
                 }
                 memset(lines[i], 0, (l + 1));
         }
@@ -39,10 +45,13 @@ int _readline_(char *buffer)
         }
         for (i = 0; i < numoflines; i++)
         {
-                _exe_(lines[i], &head, i + 1);
+                return_value = _exe_(lines[i], &head, i + 1);
+                if (return_value != 0)
+                        goto ending;
                 free(lines[i]);
         }
         free_struct(head);
         free(lines);
-        return (EXIT_SUCCESS);
+ending:
+        return (return_value);
 }

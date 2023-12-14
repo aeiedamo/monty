@@ -1,16 +1,17 @@
 #include "monty.h"
 
-int _readfile_(char **argv, int fileno)
+int _readfile_(char *argv)
 {
         FILE *f;
         char *buffer;
         unsigned int lenf;
+        int return_value;
 
-        f = fopen(argv[fileno], "r");
+        f = fopen(argv, "r");
         if (!f)
         {
-                fprintf(stderr, "Error: Can't open file %s\n", argv[fileno]);
-                exit(EXIT_FAILURE);
+                fprintf(stderr, "Error: Can't open file %s\n", argv);
+                return (EXIT_FAILURE);
         }
         fseek(f, 0L, SEEK_END);
         lenf = ftell(f);
@@ -19,12 +20,12 @@ int _readfile_(char **argv, int fileno)
         if (!buffer)
         {
                 fprintf(stderr, "Error: malloc failed\n");
-                exit(EXIT_FAILURE);
+                return (EXIT_FAILURE);
         }
         memset(buffer, 0, (lenf + 1));
         fread(buffer, lenf, 1, f);
         fclose(f);
-        _readline_(buffer);
+        return_value = _readline_(buffer);
         free(buffer);
-        return (0);
+        return (return_value);
 }

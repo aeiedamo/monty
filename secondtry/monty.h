@@ -23,7 +23,6 @@ typedef struct stack_s
         struct stack_s *prev;
         struct stack_s *next;
 } stack_t;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -38,26 +37,6 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef struct storage
-{
-        char mode;
-        char *buffer;
-        FILE *f;
-        char *arg;
-} storage;
-
-storage data = {'s', NULL, NULL, NULL};
-
-char *delimit = " \n\t";
-
-int _exe_(char *, stack_t **, unsigned int, FILE *);
-void free_struct(stack_t *head);
-
-
-void _push_(stack_t **head, unsigned int n);
-void _pall_(stack_t **head, unsigned int n);
-void _push_queue_(stack_t **head, int n);
-void _push_stack_(stack_t **head, int n);
-
-
+void _readline_(FILE *);
+char *extract_command(char *buffer);
 #endif /*MONTY_H*/

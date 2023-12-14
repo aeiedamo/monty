@@ -1,12 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define  _GNU_SOURCE
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -17,13 +16,12 @@
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO
  */
-typedef struct stack_s
+typedef struct stack_t
 {
         int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+        struct stack_t *prev;
+        struct stack_t *next;
 } stack_t;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -32,32 +30,33 @@ typedef struct stack_s
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO
  */
-typedef struct instruction_s
+typedef struct instruction_t
 {
         char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+        void (*f)(stack_t **, unsigned int);
 } instruction_t;
 
-typedef struct storage
-{
-        char mode;
-        char *buffer;
-        FILE *f;
-        char *arg;
-} storage;
+char *_strchr_(const char *, int);
+char *_strstr_(const char *, const char *);
+int _readfile_(char *);
+int _readline_(char *);
+char *_command_(const char *);
+char * _value_(const char *, const unsigned int);
+int _exe_(const char *, stack_t **, unsigned int);
 
-storage data = {'s', NULL, NULL, NULL};
-
-char *delimit = " \n\t";
-
-int _exe_(char *, stack_t **, unsigned int, FILE *);
-void free_struct(stack_t *head);
+void push(stack_t **, unsigned int);
+void pall(stack_t **, unsigned int);
+void free_struct(stack_t *);
 
 
-void _push_(stack_t **head, unsigned int n);
-void _pall_(stack_t **head, unsigned int n);
-void _push_queue_(stack_t **head, int n);
-void _push_stack_(stack_t **head, int n);
+/**
+ * 0 - SUCCESS
+ * 1 - CAN'T OPEN FILE
+ * 2 - INVALID INSTRUCTION
+ * 3 - MALLOC FAILED
+ * 4 - L<line_number>: usage: push integer
+ * 5 - pushing non-int
+*/
 
 
 #endif /*MONTY_H*/
