@@ -1,4 +1,5 @@
 #include "./test/main.c"
+#include "monty.h"
 
 /**
  * main - entry point
