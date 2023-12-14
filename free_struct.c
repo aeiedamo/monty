@@ -1,6 +1,6 @@
 #include "monty.h"
 
-stack_t *free_struct(stack_t *head)
+void free_struct(stack_t *head)
 {
         stack_t *tmp = head;
 
@@ -10,5 +10,4 @@ stack_t *free_struct(stack_t *head)
                 free(head);
                 head = tmp;
         }
-        return (tmp);
 }

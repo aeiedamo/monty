@@ -1,6 +1,6 @@
 #include "monty.h"
 
-stack_t *pall(stack_t **head, unsigned int n)
+void pall(stack_t **head, unsigned int n)
 {
         stack_t *tmp = *head;
 
@@ -22,5 +22,4 @@ stack_t *pall(stack_t **head, unsigned int n)
                         tmp = tmp->prev;
                 }
         }
-        return (*head);
 }

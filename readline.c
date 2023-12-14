@@ -16,14 +16,20 @@ int _readline_(char *buffer)
                 numoflines++;
         lines = malloc(sizeof(char *) * numoflines);
         if (!lines)
-                return (1);
+        {
+                fprintf(stderr, "Error: malloc failed\n");
+                exit(EXIT_FAILURE);
+        }
         for (i = 0, k = 0; i < numoflines; i++, k++)
         {
                 for (l = 0; buffer[k] && buffer[k] != '\n'; l++, k++)
                         ;
                 lines[i] = malloc(sizeof(char) * (l + 1));
                 if (!lines[i])
-                        return (1);
+                {
+                        fprintf(stderr, "Error: malloc failed\n");
+                        exit(EXIT_FAILURE);
+                }
                 memset(lines[i], 0, (l + 1));
         }
         for (i = 0, k = 0; i < numoflines; i++, k++)
@@ -31,16 +37,9 @@ int _readline_(char *buffer)
                 for (j = 0; buffer[k] && buffer[k] != '\n'; k++, j++)
                         lines[i][j] = buffer[k];
         }
-        free(buffer);
         for (i = 0; i < numoflines; i++)
         {
-                if (_exe_(lines[i], &head) == 1)
-                {
-                        printf("L%d: unknown instruction <opcode>", i + 1);
-                        free_struct(head);
-                        free(lines);
-                        return (EXIT_FAILURE);
-                }
+                _exe_(lines[i], &head, i + 1);
                 free(lines[i]);
         }
         free_struct(head);

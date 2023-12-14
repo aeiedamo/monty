@@ -1,11 +1,11 @@
 #include "monty.h"
 
-stack_t *push(stack_t **head, unsigned int n)
+void push(stack_t **head, unsigned int n)
 {
         stack_t *new = malloc(sizeof(stack_t));
 
         if (!new)
-                return (NULL);
+                return;
         new->n = n;
         new->next = NULL;
         if ((*head))
@@ -22,5 +22,4 @@ stack_t *push(stack_t **head, unsigned int n)
                 new->prev = NULL;
                 (*head) = new;
         }
-        return ((*head));
 }

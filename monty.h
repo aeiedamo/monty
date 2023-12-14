@@ -33,7 +33,7 @@ typedef struct stack_t
 typedef struct instruction_t
 {
         char *opcode;
-        stack_t *(*f)(stack_t **, unsigned int);
+        void (*f)(stack_t **, unsigned int);
 } instruction_t;
 
 char *_strchr_(const char *, int);
@@ -41,11 +41,22 @@ char *_strstr_(const char *, const char *);
 int _readfile_(char **, int);
 int _readline_(char *);
 char *_command_(const char *);
-int _value_(const char *);
-int _exe_(const char *, stack_t **);
+int _value_(const char *, const unsigned int);
+int _exe_(const char *, stack_t **, unsigned int);
 
-stack_t *push(stack_t **, unsigned int);
-stack_t *pall(stack_t **, unsigned int);
-stack_t *free_struct(stack_t *);
-void fix_head(stack_t *);
+void push(stack_t **, unsigned int);
+void pall(stack_t **, unsigned int);
+void free_struct(stack_t *);
+
+
+/**
+ * 0 - SUCCESS
+ * 1 - CAN'T OPEN FILE
+ * 2 - INVALID INSTRUCTION
+ * 3 - MALLOC FAILED
+ * 4 - L<line_number>: usage: push integer
+ * 5 - pushing non-int
+*/
+
+
 #endif /*MONTY_H*/
