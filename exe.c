@@ -9,11 +9,6 @@ int _exe_(const char *lines, stack_t **head, unsigned int n)
         if (strcmp(s, "push") == 0)
         {
                 free(s);
-                if (i > 1 && i < 2)
-                {
-                        fprintf(stderr, "L%d: usage: push integer", n + 1);
-                        exit(EXIT_FAILURE);
-                }
                 push(head, i);
                 return (0);
         }
@@ -24,5 +19,5 @@ int _exe_(const char *lines, stack_t **head, unsigned int n)
                 return (0);
         }
         fprintf(stderr, "L%d: unknown instruction %s\n", n, s);
-        return (2);
+        exit(EXIT_FAILURE);
 }
