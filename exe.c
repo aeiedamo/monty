@@ -4,7 +4,7 @@ int _exe_(const char *lines, stack_t **head)
 {
         char *s = _command_(lines);
         int i = _value_(lines);
-        char mode = 'q';
+        char mode = 's';
 
         if (strcmp(s, "push") == 0)
         {
