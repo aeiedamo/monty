@@ -3,8 +3,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <limits.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -32,8 +33,19 @@ typedef struct stack_t
 typedef struct instruction_t
 {
         char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+        stack_t *(*f)(stack_t **, unsigned int);
 } instruction_t;
 
+char *_strchr_(const char *, int);
+char *_strstr_(const char *, const char *);
+int _readfile_(char **, int);
+int _readline_(char *);
+char *_command_(const char *);
+int _value_(const char *);
+int _exe_(const char *, stack_t **);
 
+stack_t *push(stack_t **, unsigned int);
+stack_t *pall(stack_t **, unsigned int);
+stack_t *free_struct(stack_t *);
+void fix_head(stack_t *);
 #endif /*MONTY_H*/
